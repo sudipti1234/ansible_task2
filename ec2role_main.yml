@@ -1,0 +1,16 @@
+---
+# tasks file for ec2
+- name : Provisioning ec2
+  ec2:
+    key_name: terraform_key_pair
+    instance_type: t2.micro
+    image: ami-0a54aef4ef3b5f881
+    wait: yes
+    group: default
+    count: 1
+    state : present
+    region : us-east-2
+    vpc_subnet_id: subnet-789afb34
+    assign_public_ip: yes
+    aws_access_key : "{{ access }}"
+    aws_secret_key : "{{ secret }}"
