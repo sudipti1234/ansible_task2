@@ -1,0 +1,30 @@
+---
+# tasks file for webserver
+- name : Install httpd
+  package :
+    name : httpd
+    state : present
+  register : httpd_status
+
+- name : Create document root directory myweb
+  file :
+    state : directory
+    dest : "{{ docdir }}"
+  register : myweb_dir_status
+
+- name : Copy webserver configuration file
+  template :
+    dest : /etc/httpd/conf.d/new.conf
+    src : templates/local.conf
+    mode: '0666'
+  when : httpd_status.rc == 0
+  tags : webconf
+  notify : restart httpd
+
+- name : Get webpage from url
+  get_url :
+    dest : "{{ docdir }}"
+    url : "{{ weburl }}"                                                                                                                                                    mode : 0666                                                                                                                                                           when : myweb_dir_status.failed == false
+  tags : webgit                                                                                                                                                                                                                                                                                                                                 - name : Start httpd server
+  service :
+    name : httpd                                                                                                                                                            state : started      
