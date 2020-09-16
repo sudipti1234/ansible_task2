@@ -1,0 +1,7 @@
+---
+# vars file for webserver
+
+docdir : "/var/www/myweb"
+port_number : 90
+weburl : https://github.com/sudipti1234/wetsite/blob/master/index.html
+~                                                                          
