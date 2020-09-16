@@ -1,0 +1,17 @@
+- hosts : localhost
+  vars_files :
+    - aws_key.yml
+  roles :
+    - role : ec2
+      access : "{{ access_id }}"
+      secret : "{{ secret_key }}"
+      tags :
+        - ec2role
+
+
+- hosts : all
+  remote_user: ec2-user
+  roles :
+    - role : webserver
+      tags :
+        - webrole
